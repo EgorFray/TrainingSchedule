@@ -6,4 +6,4 @@ from .models import Schedule
 class ScheduleSerialier(serializers.ModelSerializer):
     class Meta:
         model = Schedule
-        fields = ['id', 'month', 'day', 'time', 'exercise']
+        fields = ['id', 'date', 'exercise']
