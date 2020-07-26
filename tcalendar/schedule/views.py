@@ -1,35 +1,35 @@
-from django.shortcuts import render
+
 from rest_framework import viewsets
 from .models import Schedule
-from .serializers import ScheduleSerialier
+from .serializers import ScheduleSerializer
 from rest_framework.response import Response
 from rest_framework import status
-# Create your views here.
+
 
 
 class ScheduleViewSet(viewsets.ViewSet):
     def list(self, request):
         queryset = Schedule.objects.all()
-        serializer = ScheduleSerialier(queryset, many=True)
+        serializer = ScheduleSerializer(queryset, many=True)
         return Response(serializer.data)
 
-    def create(self, request):
+    def create(self, request, user):
         queryset = Schedule.objects.create()
-        serializer = ScheduleSerialier(queryset, data=request.data)
+        serializer = ScheduleSerializer(queryset, data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(user=self.user)
         return Response(serializer.data)
 
     def retrieve(self, request, pk=None):
         queryset = Schedule.objects.get(pk=pk)
-        serializer = ScheduleSerialier(queryset)
+        serializer = ScheduleSerializer(queryset)
         return Response(serializer.data)
 
-    def update(self, request, pk=None):
+    def update(self, request, user, pk=None):
         queryset = Schedule.objects.get(pk=pk)
-        serializer = ScheduleSerialier(queryset, data=request.data)
+        serializer = ScheduleSerializer(queryset, data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(user=self.user)
         return Response(serializer.data)
 
     def destroy(self, request, pk=None):

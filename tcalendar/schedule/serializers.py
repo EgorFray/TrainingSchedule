@@ -3,7 +3,7 @@ from rest_framework import serializers
 from .models import Schedule
 
 
-class ScheduleSerialier(serializers.ModelSerializer):
+class ScheduleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Schedule
-        fields = ['id', 'date', 'exercise']
+        fields = ['id', 'user', 'date', 'exercise']
